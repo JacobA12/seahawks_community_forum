@@ -51,7 +51,7 @@ const CreatePostForm = () => {
         // Navigate to the new post's page after a successful insert
         console.log(data);
         if (data && data.length > 0) {
-          navigate(`/post/${data[0].id}`);
+          navigate(`/posts/${data[0].id}`);
         }
       }
     } catch (error) {

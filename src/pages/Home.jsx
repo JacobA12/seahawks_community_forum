@@ -11,7 +11,10 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data, error } = await supabase.from("posts").select("*");
+        const { data, error } = await supabase
+          .from("posts")
+          .select("*")
+          .order("created_at", { ascending: false });
         if (error) {
           setError(error);
           setLoading(false);
