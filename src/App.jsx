@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import CreatePost from "./pages/CreatePost";
+import EditPost from "./pages/EditPost";
+import PostPage from "./pages/PostPage";
+import "./styles/App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>Hello</div>
-    </>
+    <div className="app-layout">
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/create" element={<CreatePost />} />
+          <Route path="/posts/:id/edit" element={<EditPost />} />
+          <Route path="/posts/:id" element={<PostPage />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 
