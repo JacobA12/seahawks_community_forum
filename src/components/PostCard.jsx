@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 
 const PostCard = ({ post }) => {
   const [upvotes, setUpvotes] = useState(post.upvotes);
+  const [commentCount, setCommentCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const handleUpvote = async () => {
@@ -20,6 +21,19 @@ const PostCard = ({ post }) => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    const fetchCommentCount = async () => {
+      const { data, count, error } = await supabase
+        .from("comments")
+        .select("*", { count: "exact" })
+        .eq("post_id", post.id);
+      if (!error && count !== null) {
+        setCommentCount(count);
+      }
+    };
+    fetchCommentCount();
+  }, []);
+
   return (
     <div className="post-card">
       <div className="post-title">
@@ -35,6 +49,7 @@ const PostCard = ({ post }) => {
               {loading ? "Upvoting..." : "Upvote"}
             </button>
           </p>
+          <p>Number of Comments: {commentCount}</p>
           <p>Posted on: {new Date(post.created_at).toLocaleDateString()}</p>
           <p>Created by: {post.user_id || "seahawks fan"}</p>
         </div>
