@@ -36,7 +36,7 @@ const PostCard = ({ post }) => {
             </button>
           </p>
           <p>Posted on: {new Date(post.created_at).toLocaleDateString()}</p>
-          <p>Created by: {post.user_id}</p>
+          <p>Created by: {post.user_id || "seahawks fan"}</p>
         </div>
       </div>
     </div>
