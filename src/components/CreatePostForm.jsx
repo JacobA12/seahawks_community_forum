@@ -29,16 +29,18 @@ const CreatePostForm = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const { data, error } = await supabase.from("posts").insert([
-        {
-          title: title,
-          content: content,
-          image_url: imageUrl,
-          upvotes: 1,
-          created_at: Date.now(),
-          user_id: null,
-        },
-      ]);
+      const { data, error } = await supabase
+        .from("posts")
+        .insert([
+          {
+            title: title,
+            content: content,
+            image_url: imageUrl,
+            upvotes: 1,
+            user_id: null,
+          },
+        ])
+        .select();
 
       if (error) {
         setError(error);
@@ -46,7 +48,11 @@ const CreatePostForm = () => {
       } else {
         setLoading(false);
         alert("Successfully created new post", data);
-        navigate(`/post/${data.id}`);
+        // Navigate to the new post's page after a successful insert
+        console.log(data);
+        if (data && data.length > 0) {
+          navigate(`/post/${data[0].id}`);
+        }
       }
     } catch (error) {
       setError(error);
