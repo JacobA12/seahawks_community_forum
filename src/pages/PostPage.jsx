@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import PostDetail from "../components/PostDetail";
 
 function PostPage() {
   const { id } = useParams();
@@ -8,7 +8,7 @@ function PostPage() {
     <div>
       <h1>Post Detail Page</h1>
       <p>Post ID: {id}</p>
-      {/* Add post details, comments, and upvote functionality here */}
+      <PostDetail postId={id} />
     </div>
   );
 }
