@@ -6,6 +6,12 @@ function CommentSection({ postId }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // New state for the comment form
+  const [commentContent, setCommentContent] = useState("");
+  const [commenterName, setCommenterName] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState(null);
+
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -14,7 +20,7 @@ function CommentSection({ postId }) {
           .from("comments")
           .select("*")
           .eq("post_id", postId)
-          .order("created_at", { ascending: true });
+          .order("created_at", { ascending: false });
 
         if (error) {
           setError(error);
@@ -31,6 +37,39 @@ function CommentSection({ postId }) {
     fetchComments();
   }, [postId]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormError(null);
+
+    if (!commentContent.trim()) {
+      setFormError("Comment cannot be empty.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    const { data, error } = await supabase
+      .from("comments")
+      .insert([
+        {
+          post_id: postId,
+          content: commentContent,
+          commenter_name: commenterName || null,
+        },
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      setFormError("Failed to add comment. Please try again.");
+    } else {
+      setComments((prev) => [...prev, data]);
+      setCommentContent("");
+      setCommenterName("");
+    }
+    setSubmitting(false);
+  };
+
   if (loading) {
     return <div>Loading comments...</div>;
   }
@@ -46,6 +85,25 @@ function CommentSection({ postId }) {
   return (
     <div className="comments-container">
       <h3>Comments</h3>
+      <form onSubmit={handleSubmit} className="comment-form">
+        <textarea
+          value={commentContent}
+          onChange={(e) => setCommentContent(e.target.value)}
+          placeholder="Write your comment here..."
+          rows={3}
+          required
+        />
+        <input
+          type="text"
+          value={commenterName}
+          onChange={(e) => setCommenterName(e.target.value)}
+          placeholder="Your name (optional)"
+        />
+        <button type="submit" disabled={submitting}>
+          {submitting ? "Posting..." : "Add Comment"}
+        </button>
+        {formError && <div style={{ color: "red" }}>{formError}</div>}
+      </form>
       <ul className="comment-list">
         {comments.map((comment) => (
           <li key={comment.id} className="comment">
