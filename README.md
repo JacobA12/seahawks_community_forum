@@ -1,10 +1,10 @@
 # Web Development Final Project - _Name of App Here_
 
-Submitted by: **Your Name Here**
+Submitted by: **Jacob Adams**
 
-This web app: **insert description**
+This web app: **is a place for Seahawks fans to discuss anything about the team, rivalries, trades, and adjacent topics.**
 
-Time spent: **X** hours spent in total
+Time spent: **10** hours spent in total
 
 ## Required Features
 
