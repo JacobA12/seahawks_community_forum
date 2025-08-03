@@ -59,13 +59,16 @@ function EditPost() {
     }
   };
 
-  if (loading) return <div>Loading post...</div>;
-  if (error) return <div style={{ color: "red" }}>Error: {error.message}</div>;
-  if (!post) return <div>No post found.</div>;
+  if (loading) return <div className="loading-state">Loading post...</div>;
+  if (error) return <div className="error-state">Error: {error.message}</div>;
+  if (!post) return <div className="error-state">No post found.</div>;
 
   return (
-    <div>
-      <h1>Edit Post</h1>
+    <div className="edit-post-page">
+      <div className="page-header">
+        <h1 className="page-title">✏️ Edit Post</h1>
+        <p className="page-subtitle">Update your Seahawks discussion</p>
+      </div>
       <EditPostForm
         initialValues={post}
         onSubmit={handleUpdate}

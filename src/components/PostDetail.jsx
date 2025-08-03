@@ -32,28 +32,39 @@ function PostDetail({ postId }) {
   }, [postId]);
 
   if (loading) {
-    return <div>Loading post...</div>;
+    return <div className="loading-state">Loading post...</div>;
   }
 
   if (error) {
     return (
-      <div style={{ color: "red" }}>
+      <div className="error-state">
         Error: {error.message || "Could not load post."}
       </div>
     );
   }
 
   if (!post) {
-    return <div>No post found.</div>;
+    return <div className="error-state">No post found.</div>;
   }
 
   return (
     <div className="post-detail-container">
-      <PostCard post={post} />
-      <Link to={`/edit/${postId}`}>
-        <button>Edit Post</button>
-      </Link>
-      <CommentSection postId={postId} />
+      <div className="post-detail-header">
+        <Link to="/" className="back-link">
+          ← Back to Forum
+        </Link>
+        <Link to={`/edit/${postId}`} className="edit-post-btn">
+          ✏️ Edit Post
+        </Link>
+      </div>
+
+      <div className="post-detail-content">
+        <PostCard post={post} />
+
+        <div className="comments-section">
+          <CommentSection postId={postId} />
+        </div>
+      </div>
     </div>
   );
 }

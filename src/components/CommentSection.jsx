@@ -71,12 +71,12 @@ function CommentSection({ postId }) {
   };
 
   if (loading) {
-    return <div>Loading comments...</div>;
+    return <div className="loading-state">Loading comments...</div>;
   }
 
   if (error) {
     return (
-      <div style={{ color: "red" }}>
+      <div className="error-state">
         Error: {error.message || "Could not load comments."}
       </div>
     );
@@ -84,35 +84,82 @@ function CommentSection({ postId }) {
 
   return (
     <div className="comments-container">
-      <h3>Comments</h3>
+      <div className="comments-header">
+        <h3 className="comments-title">💬 Discussion ({comments.length})</h3>
+      </div>
+
       <form onSubmit={handleSubmit} className="comment-form">
-        <textarea
-          value={commentContent}
-          onChange={(e) => setCommentContent(e.target.value)}
-          placeholder="Write your comment here..."
-          rows={3}
-          required
-        />
-        <input
-          type="text"
-          value={commenterName}
-          onChange={(e) => setCommenterName(e.target.value)}
-          placeholder="Your name (optional)"
-        />
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Posting..." : "Add Comment"}
-        </button>
-        {formError && <div style={{ color: "red" }}>{formError}</div>}
+        <div className="form-group">
+          <label htmlFor="comment-content" className="form-label">
+            Add your thoughts
+          </label>
+          <textarea
+            id="comment-content"
+            className="form-textarea"
+            value={commentContent}
+            onChange={(e) => setCommentContent(e.target.value)}
+            placeholder="Share your thoughts about this post..."
+            rows={4}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="commenter-name" className="form-label">
+            Your name (optional)
+          </label>
+          <input
+            id="commenter-name"
+            type="text"
+            className="form-input"
+            value={commenterName}
+            onChange={(e) => setCommenterName(e.target.value)}
+            placeholder="Enter your name or stay anonymous"
+          />
+        </div>
+
+        <div className="form-actions">
+          <button
+            type="submit"
+            className="comment-submit-btn"
+            disabled={submitting}
+          >
+            {submitting ? "🔄 Posting..." : "💬 Post Comment"}
+          </button>
+        </div>
+
+        {formError && <div className="error-message">{formError}</div>}
       </form>
-      <ul className="comment-list">
-        {comments.map((comment) => (
-          <li key={comment.id} className="comment">
-            {comment.content} Posted on:{" "}
-            {new Date(comment.created_at).toLocaleString()} by{" "}
-            {comment.commenter_name || "Anonymous"}
-          </li>
-        ))}
-      </ul>
+
+      <div className="comments-list">
+        {comments.length === 0 ? (
+          <div className="no-comments">
+            <p>No comments yet. Be the first to share your thoughts!</p>
+          </div>
+        ) : (
+          <ul className="comment-list">
+            {comments.map((comment) => (
+              <li key={comment.id} className="comment-item">
+                <div className="comment-content">
+                  <p>{comment.content}</p>
+                </div>
+                <div className="comment-meta">
+                  <span className="comment-author">
+                    👤 {comment.commenter_name || "Anonymous"}
+                  </span>
+                  <span className="comment-date">
+                    📅 {new Date(comment.created_at).toLocaleDateString()} at{" "}
+                    {new Date(comment.created_at).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

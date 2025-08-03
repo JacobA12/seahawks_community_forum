@@ -1,0 +1,12 @@
+/* Core Seahawks Colors */
+:root {
+  --seahawks-navy: #002244;
+  --seahawks-green: #69be28;
+  --seahawks-grey: #a5acaf;
+  --seahawks-wolf-grey: #b6bbbf;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --background-dark: #1a1a1a;
+  --background-medium: #2d3748;
+  --background-light: #4a5568;
+}

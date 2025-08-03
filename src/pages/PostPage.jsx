@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import PostDetail from "../components/PostDetail";
 
 function PostPage() {
   const { id } = useParams();
   return (
-    <div>
-      <h1>Post Detail Page</h1>
-      <p>Post ID: {id}</p>
+    <div className="post-page">
       <PostDetail postId={id} />
     </div>
   );

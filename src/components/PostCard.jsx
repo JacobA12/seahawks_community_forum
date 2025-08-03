@@ -38,20 +38,40 @@ const PostCard = ({ post }) => {
     <div className="post-card">
       <div className="post-title">
         <Link to={`/posts/${post.id}`}>{post.title}</Link>
-        <div className="post-content">
-          <p>{post.content}</p>
-          <img src={post.image_url} alt="Attached image to post" height={200} />
+      </div>
+
+      <div className="post-content">
+        {post.content && <p>{post.content}</p>}
+        {post.image_url && <img src={post.image_url} alt="Post image" />}
+      </div>
+
+      <div className="post-footer">
+        <div className="post-stats">
+          <div className="stat-item">
+            <span>💬</span>
+            <span>{commentCount} comments</span>
+          </div>
+          <div className="stat-item">
+            <span>👍</span>
+            <span>{upvotes} upvotes</span>
+          </div>
         </div>
-        <div className="post-footer">
-          <p>
-            Upvotes: {upvotes}{" "}
-            <button onClick={handleUpvote} disabled={loading}>
-              {loading ? "Upvoting..." : "Upvote"}
-            </button>
-          </p>
-          <p>Number of Comments: {commentCount}</p>
-          <p>Posted on: {new Date(post.created_at).toLocaleDateString()}</p>
-          <p>Created by: {post.user_id || "seahawks fan"}</p>
+
+        <div className="post-actions">
+          <button
+            className="upvote-btn"
+            onClick={handleUpvote}
+            disabled={loading}
+          >
+            {loading ? "⏳" : "👍"}
+            {loading ? "Upvoting..." : "Upvote"}
+          </button>
+        </div>
+
+        <div className="post-meta">
+          <span>Posted: {new Date(post.created_at).toLocaleDateString()}</span>
+          <br />
+          <span>By User: {post.user_id || "seahawks fan"}</span>
         </div>
       </div>
     </div>

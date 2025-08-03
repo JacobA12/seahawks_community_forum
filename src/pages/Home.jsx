@@ -75,11 +75,15 @@ const Home = () => {
   return (
     <div className="posts-container">
       <div className="posts-header">
-        <h1 className="posts-header"></h1>
-        <p className="posts-subtitle"></p>
+        <h1 className="posts-title">🏈 Seahawks Community Forum</h1>
+        <p className="posts-subtitle">Join the conversation with fellow 12s!</p>
       </div>
-      <SearchBar onSearch={setSearchTerm} currentSearchTerm={searchTerm} />
-      <SortOptions sortBy={sortValue} onSortChange={setSortValue} />
+
+      <div className="forum-controls">
+        <SearchBar onSearch={setSearchTerm} currentSearchTerm={searchTerm} />
+        <SortOptions sortBy={sortValue} onSortChange={setSortValue} />
+      </div>
+
       {renderContent()}
     </div>
   );

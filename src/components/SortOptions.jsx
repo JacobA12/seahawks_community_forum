@@ -4,16 +4,19 @@ import React from "react";
 
 function SortOptions({ sortBy, onSortChange }) {
   return (
-    <div className="sort-options">
-      <label htmlFor="sort-select">Sort By:</label>
+    <div className="sort-container">
+      <label htmlFor="sort-select" className="sort-label">
+        Sort By:
+      </label>
       <select
         id="sort-select"
+        className="sort-select"
         value={sortBy}
         onChange={(e) => onSortChange(e.target.value)}
       >
-        <option value="created_at_desc">Newest</option>
-        <option value="created_at_asc">Oldest</option>
-        <option value="upvotes_desc">Most Upvotes</option>
+        <option value="created_at_desc">📅 Newest First</option>
+        <option value="created_at_asc">⏰ Oldest First</option>
+        <option value="upvotes_desc">🔥 Most Popular</option>
       </select>
     </div>
   );

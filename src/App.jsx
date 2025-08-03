@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
@@ -8,7 +9,8 @@ import "./styles/App.css";
 function App() {
   return (
     <div className="app-layout">
-      <main>
+      <Navigation />
+      <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreatePost />} />

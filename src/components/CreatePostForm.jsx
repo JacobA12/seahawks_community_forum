@@ -62,51 +62,68 @@ const CreatePostForm = () => {
 
   return (
     <div className="create-post-form-container">
-      <h1 className="create-post-form-title">New Post Form</h1>
       {/* Show error message if error exists */}
       {error && (
-        <div
-          className="error-message"
-          style={{ color: "red", marginBottom: "1rem" }}
-        >
+        <div className="error-state">
           {error.message || "Something went wrong. Please try again."}
         </div>
       )}
+
       {/* Show loading message if loading */}
-      {loading && (
-        <div
-          className="loading-message"
-          style={{ color: "#69BE28", marginBottom: "1rem" }}
-        >
-          Posting...
-        </div>
-      )}
+      {loading && <div className="loading-state">Creating your post...</div>}
+
       <form className="create-post-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={handleTitleChange}
-          required
-          disabled={loading}
-        />
-        <input
-          type="text"
-          placeholder="Content"
-          value={content}
-          onChange={handleContentChange}
-          disabled={loading}
-        />
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={imageUrl}
-          onChange={handleImageUrlChange}
-          disabled={loading}
-        />
-        <button type="submit" className="btn-create" disabled={loading}>
-          {loading ? "Saving..." : "Save and Post"}
-        </button>
+        <div className="form-group">
+          <label htmlFor="title" className="form-label">
+            Post Title *
+          </label>
+          <input
+            id="title"
+            type="text"
+            className="form-input"
+            placeholder="What's on your mind about the Seahawks?"
+            value={title}
+            onChange={handleTitleChange}
+            required
+            disabled={loading}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="content" className="form-label">
+            Content
+          </label>
+          <textarea
+            id="content"
+            className="form-textarea"
+            placeholder="Share your thoughts, analysis, or discussion topic..."
+            value={content}
+            onChange={handleContentChange}
+            disabled={loading}
+            rows="6"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="imageUrl" className="form-label">
+            Image URL (optional)
+          </label>
+          <input
+            id="imageUrl"
+            type="url"
+            className="form-input"
+            placeholder="https://example.com/image.jpg"
+            value={imageUrl}
+            onChange={handleImageUrlChange}
+            disabled={loading}
+          />
+        </div>
+
+        <div className="form-actions">
+          <button type="submit" className="btn-create" disabled={loading}>
+            {loading ? "🔄 Creating Post..." : "🚀 Create Post"}
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -17,45 +17,72 @@ function EditPostForm({ initialValues, onSubmit, onDelete, loading, error }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="edit-post-form">
-      <label>
-        Title (required):
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Content:
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          rows={5}
-        />
-      </label>
-      <label>
-        Image URL:
-        <input
-          type="text"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-      </label>
-      <button type="submit" disabled={loading}>
-        {loading ? "Saving..." : "Save Changes"}
-      </button>
-      <button
-        type="button"
-        onClick={handleDelete}
-        disabled={loading}
-        style={{ marginLeft: "1rem", background: "#c00", color: "#fff" }}
-      >
-        Delete Post
-      </button>
-      {error && <div style={{ color: "red" }}>{error.message}</div>}
-    </form>
+    <div className="edit-post-form-container">
+      {error && (
+        <div className="error-state">
+          {error.message || "Something went wrong. Please try again."}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="edit-post-form">
+        <div className="form-group">
+          <label htmlFor="edit-title" className="form-label">
+            Post Title *
+          </label>
+          <input
+            id="edit-title"
+            type="text"
+            className="form-input"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            disabled={loading}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="edit-content" className="form-label">
+            Content
+          </label>
+          <textarea
+            id="edit-content"
+            className="form-textarea"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={6}
+            disabled={loading}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="edit-imageUrl" className="form-label">
+            Image URL
+          </label>
+          <input
+            id="edit-imageUrl"
+            type="url"
+            className="form-input"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            disabled={loading}
+          />
+        </div>
+
+        <div className="form-actions">
+          <button type="submit" className="btn-save" disabled={loading}>
+            {loading ? "💾 Saving..." : "💾 Save Changes"}
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={loading}
+            className="btn-delete"
+          >
+            🗑️ Delete Post
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 

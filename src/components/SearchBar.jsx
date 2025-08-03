@@ -14,8 +14,8 @@ function SearchBar({ onSearch, currentSearchTerm = "" }) {
   };
 
   return (
-    <div className="search-bar">
-      <form onSubmit={handleSubmit}>
+    <div className="search-container">
+      <form onSubmit={handleSubmit} className="search-form">
         <input
           type="text"
           value={query}
@@ -24,11 +24,11 @@ function SearchBar({ onSearch, currentSearchTerm = "" }) {
           className="search-input"
         />
         <button type="submit" className="search-btn">
-          Search
+          🔍 Search
         </button>
         {query && (
           <button type="button" onClick={handleClear} className="clear-btn">
-            Clear
+            ✕ Clear
           </button>
         )}
       </form>
