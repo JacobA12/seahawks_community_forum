@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
+import EditPostForm from "../components/EditPostForm";
 
 function EditPost() {
   const { id: postId } = useParams();
@@ -10,12 +11,9 @@ function EditPost() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-
   useEffect(() => {
     const fetchPostDetail = async () => {
+      setLoading(true);
       try {
         const { data, error } = await supabase
           .from("posts")
@@ -26,29 +24,21 @@ function EditPost() {
           setError(error);
         } else {
           setPost(data);
-          setTitle(data.title);
-          setContent(data.content || "");
-          setImageUrl(data.image_url || "");
         }
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
+      } catch (err) {
+        setError(err);
       }
+      setLoading(false);
     };
     fetchPostDetail();
   }, [postId]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Handle form submission (update post)
+  const handleUpdate = async (updatedFields) => {
     setLoading(true);
     const { error } = await supabase
       .from("posts")
-      .update({
-        title,
-        content,
-        image_url: imageUrl,
-      })
+      .update(updatedFields)
       .eq("id", postId);
     setLoading(false);
     if (error) {
@@ -58,43 +48,31 @@ function EditPost() {
     }
   };
 
+  const handleDelete = async () => {
+    setLoading(true);
+    const { error } = await supabase.from("posts").delete().eq("id", postId);
+    setLoading(false);
+    if (error) {
+      setError(error);
+    } else {
+      navigate("/");
+    }
+  };
+
   if (loading) return <div>Loading post...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div style={{ color: "red" }}>Error: {error.message}</div>;
   if (!post) return <div>No post found.</div>;
 
   return (
     <div>
       <h1>Edit Post</h1>
-      <form onSubmit={handleSubmit} className="edit-post-form">
-        <label>
-          Title (required):
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Content:
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={5}
-          />
-        </label>
-        <label>
-          Image URL:
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
-        </label>
-        <button type="submit" disabled={loading}>
-          {loading ? "Saving..." : "Save Changes"}
-        </button>
-      </form>
+      <EditPostForm
+        initialValues={post}
+        onSubmit={handleUpdate}
+        onDelete={handleDelete}
+        loading={loading}
+        error={error}
+      />
     </div>
   );
 }
