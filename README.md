@@ -1,4 +1,4 @@
-# Web Development Final Project - _Name of App Here_
+# Web Development Final Project - _Seahawks Community Forum_
 
 Submitted by: **Jacob Adams**
 
@@ -10,24 +10,24 @@ Time spent: **10** hours spent in total
 
 The following **required** functionality is completed:
 
-- [ x ] **Web app includes a create form that allows the user to create posts**
+- [x] **Web app includes a create form that allows the user to create posts**
   - Form requires users to add a post title
   - Forms should have the _option_ for users to add:
     - additional textual content
     - an image added as an external image URL
-- [ x ] **Web app includes a home feed displaying previously created posts**
+- [x] **Web app includes a home feed displaying previously created posts**
   - Web app must include home feed displaying previously created posts
   - By default, each post on the posts feed should show only the post's:
     - creation time
     - title
     - upvotes count
   - Clicking on a post should direct the user to a new page for the selected post
-- [ x ] **Users can view posts in different ways**
+- [x] **Users can view posts in different ways**
   - Users can sort posts by either:
     - creation time
     - upvotes count
   - Users can search for posts by title
-- [ x ] **Users can interact with each post in different ways**
+- [x] **Users can interact with each post in different ways**
 
   - The app includes a separate post page for each created post when clicked, where any additional information is shown, including:
     - content
@@ -38,7 +38,7 @@ The following **required** functionality is completed:
     - Each click increases the post's upvotes count by one
     - Users can upvote any post any number of times
 
-- [ x ] **A post that a user previously created can be edited or deleted from its post pages**
+- [x] **A post that a user previously created can be edited or deleted from its post pages**
   - After a user creates a new post, they can go back and edit the post
   - A previously created post can be deleted from its post page
 
@@ -68,24 +68,20 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/JacobA12/seahawks_community_forum/blob/main/FinalProjectMVP.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-<!-- Replace this with whatever GIF tool you used! -->
-
-GIF created with ...
-
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
+GIF created with [ScreenToGif](https://www.screentogif.com/) for Windows
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+- One key challenge I had was designing the database. I know this one was quite simple, but I tried to think of how I could design the database in a way to scale/add more features. I ended up just keeping it simple, but I could see how it can get complicated fast.
+- Another challenge I encountered was with component structure. In this project I did the best at making sure to use components when possible and I really got to see how useful they are. In the future I want to design components that take in more data as it is a great feature that I underutilize.
+- I used useEffect hooks a lot, I am quite comfortable with them. However, I need to think about the other features of useEffect hooks such as rerunning when a component changes or killing the hook when the feature is gone. 
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2025] [Jacob Adams]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
