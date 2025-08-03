@@ -61,6 +61,22 @@ function PostDetail({ postId }) {
       <div className="post-detail-content">
         <PostCard post={post} />
 
+        {/* Full post content and image - only shown on detail page */}
+        {(post.content || post.image_url) && (
+          <div className="post-full-content">
+            {post.content && (
+              <div className="post-content-text">
+                <p>{post.content}</p>
+              </div>
+            )}
+            {post.image_url && (
+              <div className="post-image">
+                <img src={post.image_url} alt="Post image" />
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="comments-section">
           <CommentSection postId={postId} />
         </div>

@@ -23,7 +23,7 @@ const PostCard = ({ post }) => {
 
   useEffect(() => {
     const fetchCommentCount = async () => {
-      const { data, count, error } = await supabase
+      const { count, error } = await supabase
         .from("comments")
         .select("*", { count: "exact" })
         .eq("post_id", post.id);
@@ -32,17 +32,12 @@ const PostCard = ({ post }) => {
       }
     };
     fetchCommentCount();
-  }, []);
+  }, [post.id]);
 
   return (
     <div className="post-card">
       <div className="post-title">
         <Link to={`/posts/${post.id}`}>{post.title}</Link>
-      </div>
-
-      <div className="post-content">
-        {post.content && <p>{post.content}</p>}
-        {post.image_url && <img src={post.image_url} alt="Post image" />}
       </div>
 
       <div className="post-footer">
