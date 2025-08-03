@@ -148,7 +148,7 @@ function CommentSection({ postId }) {
                     👤 {comment.commenter_name || "Anonymous"}
                   </span>
                   <span className="comment-date">
-                    📅 {new Date(comment.created_at).toLocaleDateString()} at{" "}
+                    {new Date(comment.created_at).toLocaleDateString()} at{" "}
                     {new Date(comment.created_at).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",

@@ -51,9 +51,9 @@
 
 /* Main Navigation */
 .main-navigation {
-  flex: 2;
+  flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .nav-list {
@@ -95,9 +95,7 @@
 
 /* Header Actions */
 .header-actions {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  display: none; /* Hide since nav is now on the right */
 }
 
 .action-btn {
