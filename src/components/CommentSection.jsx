@@ -63,7 +63,7 @@ function CommentSection({ postId }) {
     if (error) {
       setFormError("Failed to add comment. Please try again.");
     } else {
-      setComments((prev) => [...prev, data]);
+      setComments((prev) => [data, ...prev]);
       setCommentContent("");
       setCommenterName("");
     }

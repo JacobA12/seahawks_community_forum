@@ -3,12 +3,14 @@ import { supabase } from "../utils/supabaseClient";
 import { Link } from "react-router-dom";
 import PostFeed from "../components/PostFeed";
 import SortOptions from "../components/SortOptions";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortValue, setSortValue] = useState("created_at_desc");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -47,10 +49,15 @@ const Home = () => {
     fetchPosts();
   }, [sortValue]);
 
+  // Filter posts by title
+  const filteredPosts = posts.filter((post) =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const renderContent = () => {
     if (loading) return <p className="loading-state">Loading posts...</p>;
     if (error) return <p className="error-state">Error: {error.message}</p>;
-    if (posts.length === 0) {
+    if (filteredPosts.length === 0) {
       return (
         <div className="empty-state">
           <h3>No posts created yet!</h3>
@@ -62,7 +69,7 @@ const Home = () => {
       );
     }
 
-    return <PostFeed posts={posts} />;
+    return <PostFeed posts={filteredPosts} />;
   };
 
   return (
@@ -71,6 +78,7 @@ const Home = () => {
         <h1 className="posts-header"></h1>
         <p className="posts-subtitle"></p>
       </div>
+      <SearchBar onSearch={setSearchTerm} currentSearchTerm={searchTerm} />
       <SortOptions sortBy={sortValue} onSortChange={setSortValue} />
       {renderContent()}
     </div>
