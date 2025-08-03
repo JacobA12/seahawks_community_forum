@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import CommentSection from "./CommentSection";
 import PostCard from "./PostCard";
 import { supabase } from "../utils/supabaseClient";
+import { Link } from "react-router-dom";
 
 function PostDetail({ postId }) {
   const [post, setPost] = useState(null);
@@ -49,6 +50,9 @@ function PostDetail({ postId }) {
   return (
     <div className="post-detail-container">
       <PostCard post={post} />
+      <Link to={`/edit/${postId}`}>
+        <button>Edit Post</button>
+      </Link>
       <CommentSection postId={postId} />
     </div>
   );
