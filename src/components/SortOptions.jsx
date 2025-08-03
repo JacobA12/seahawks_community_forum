@@ -14,9 +14,9 @@ function SortOptions({ sortBy, onSortChange }) {
         value={sortBy}
         onChange={(e) => onSortChange(e.target.value)}
       >
-        <option value="created_at_desc">📅 Newest First</option>
-        <option value="created_at_asc">⏰ Oldest First</option>
-        <option value="upvotes_desc">🔥 Most Popular</option>
+        <option value="created_at_desc">Newest First</option>
+        <option value="created_at_asc">Oldest First</option>
+        <option value="upvotes_desc">Most Popular</option>
       </select>
     </div>
   );
